@@ -1,0 +1,173 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+    <!-- BepInEx Properties -->
+    <PropertyGroup>
+        <AssemblyName>cyclozarin.contentwarning.LazerWeaponry</AssemblyName>
+        <Product>LazerWeaponry</Product>
+    </PropertyGroup>
+
+    <!-- Set Mod Version with MinVer -->
+    <Target Name="SetModVersion" BeforeTargets="AddGeneratedFile" DependsOnTargets="MinVer">
+        <PropertyGroup>
+            <PlainVersion>$(MinVerMajor).$(MinVerMinor).$(MinVerPatch)</PlainVersion>
+            <BepInExPluginVersion>$(PlainVersion)</BepInExPluginVersion>
+        </PropertyGroup>
+    </Target>
+
+    <!-- Project Properties -->
+    <PropertyGroup>
+        <TargetFramework>netstandard2.1</TargetFramework>
+        <RootNamespace>LazerWeaponry</RootNamespace>
+        <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+        <LangVersion>latest</LangVersion>
+    </PropertyGroup>
+
+    <!-- Enable Nullable for better IDE null-checking -->
+    <PropertyGroup>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <!-- Set NuGet Sources -->
+    <PropertyGroup>
+        <RestoreAdditionalProjectSources>
+            https://api.nuget.org/v3/index.json;
+            https://nuget.bepinex.dev/v3/index.json
+        </RestoreAdditionalProjectSources>
+    </PropertyGroup>
+
+    <!-- Set MinVer Tag & Prerelease Properties -->
+    <PropertyGroup>
+        <MinVerDefaultPreReleaseIdentifiers>dev</MinVerDefaultPreReleaseIdentifiers>
+        <MinVerTagPrefix>v</MinVerTagPrefix>
+    </PropertyGroup>
+
+    <!-- Embed Debug Symbols for Easier Debugging -->
+    <PropertyGroup>
+        <DebugSymbols>true</DebugSymbols>
+        <DebugType>embedded</DebugType>
+        <!--
+        Trim the project path to prevent players from potentially
+        viewing Private Information in stack traces.
+        -->
+        <PathMap>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)'))=./</PathMap>
+    </PropertyGroup>
+    <ItemGroup>
+      <None Remove="Bundles\sfxbundle" />
+      <None Remove="Embedded plugins\Notest.ConfigSync.dll" />
+      <None Remove="Settings\KillReward.cs~RF10b6668.TMP" />
+    </ItemGroup>
+    <ItemGroup>
+      <EmbeddedResource Include="Bundles\sfxbundle" />
+      <EmbeddedResource Include="Embedded plugins\Notest.ConfigSync.dll" />
+    </ItemGroup>
+
+    <!-- Primary Package References -->
+    <ItemGroup>
+        <PackageReference Include="BepInEx.Analyzers" Version="1.*" PrivateAssets="all" />
+        <PackageReference Include="BepInEx.AssemblyPublicizer.MSBuild" Version="0.4.*" PrivateAssets="all" />
+        <PackageReference Include="BepInEx.Core" Version="5.*" PrivateAssets="all" />
+        <PackageReference Include="BepInEx.PluginInfoProps" Version="2.*" PrivateAssets="all" />
+        <PackageReference Include="CommanderCat101.ContentSettings" Version="1.2.2" />
+        <PackageReference Include="RugbugRedfern.MyceliumNetworking.CW" Version="1.0.13" />
+        <PackageReference Include="UnityEngine.Modules" Version="2022.3.10" PrivateAssets="all" />
+        <PackageReference Include="ContentWarning.GameLibs.Steam" Version="*-*" Publicize="true" PrivateAssets="all" />
+        <PackageReference Include="MinVer" Version="5.0.0" PrivateAssets="all" />
+    </ItemGroup>
+
+    <ItemGroup Condition="'$(TargetFramework.TrimEnd(`0123456789`))' == 'net'">
+        <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.2" PrivateAssets="all" />
+    </ItemGroup>
+
+    <!-- References - HookGen Assemblies -->
+    <ItemGroup>
+        <Reference Include="$(MMHOOKManaged)MMHOOK_Assembly-CSharp.dll" />
+        <Reference Include="0Harmony">
+          <HintPath>C:\Users\po0po\OneDrive\Documents\Visual Studio 2022\Templates\ProjectTemplates\whoknows\0Harmony.dll</HintPath>
+        </Reference>
+        <Reference Include="Assembly-CSharp">
+          <HintPath>C:\Users\po0po\OneDrive\Documents\Visual Studio 2022\Templates\ProjectTemplates\whoknows\Assembly-CSharp.dll</HintPath>
+        </Reference>
+        <Reference Include="BepInEx">
+          <HintPath>C:\Users\po0po\OneDrive\Documents\Visual Studio 2022\Templates\ProjectTemplates\whoknows\BepInEx.dll</HintPath>
+        </Reference>
+        <Reference Include="BepInEx.Harmony">
+          <HintPath>C:\Users\po0po\OneDrive\Documents\Visual Studio 2022\Templates\ProjectTemplates\whoknows\BepInEx.Harmony.dll</HintPath>
+        </Reference>
+        <Reference Include="BepInEx.MonoMod.AutoHookGenPatcher">
+          <HintPath>C:\Users\po0po\OneDrive\Documents\Visual Studio 2022\Templates\ProjectTemplates\whoknows\BepInEx.MonoMod.AutoHookGenPatcher.dll</HintPath>
+        </Reference>
+        <Reference Include="BepInEx.Preloader">
+          <HintPath>C:\Users\po0po\OneDrive\Documents\Visual Studio 2022\Templates\ProjectTemplates\whoknows\BepInEx.Preloader.dll</HintPath>
+        </Reference>
+        <Reference Include="CommanderCat101.ContentSettings">
+          <HintPath>C:\Users\po0po\OneDrive\Documents\Visual Studio 2022\Templates\ProjectTemplates\whoknows\CommanderCat101.ContentSettings.dll</HintPath>
+        </Reference>
+        <Reference Include="Hamunii.DetourContext.Dispose_Fix">
+          <HintPath>C:\Users\po0po\OneDrive\Documents\Visual Studio 2022\Templates\ProjectTemplates\whoknows\Hamunii.DetourContext.Dispose_Fix.dll</HintPath>
+        </Reference>
+        <Reference Include="HarmonyXInterop">
+          <HintPath>C:\Users\po0po\OneDrive\Documents\Visual Studio 2022\Templates\ProjectTemplates\whoknows\HarmonyXInterop.dll</HintPath>
+        </Reference>
+        <Reference Include="MMHOOK_Assembly-CSharp">
+          <HintPath>C:\Users\po0po\OneDrive\Documents\Visual Studio 2022\Templates\ProjectTemplates\whoknows\MMHOOK_Assembly-CSharp.dll</HintPath>
+        </Reference>
+        <Reference Include="Mono.Cecil">
+          <HintPath>C:\Users\po0po\OneDrive\Documents\Visual Studio 2022\Templates\ProjectTemplates\whoknows\Mono.Cecil.dll</HintPath>
+        </Reference>
+        <Reference Include="Mono.Cecil.Mdb">
+          <HintPath>C:\Users\po0po\OneDrive\Documents\Visual Studio 2022\Templates\ProjectTemplates\whoknows\Mono.Cecil.Mdb.dll</HintPath>
+        </Reference>
+        <Reference Include="Mono.Cecil.Pdb">
+          <HintPath>C:\Users\po0po\OneDrive\Documents\Visual Studio 2022\Templates\ProjectTemplates\whoknows\Mono.Cecil.Pdb.dll</HintPath>
+        </Reference>
+        <Reference Include="Mono.Cecil.Rocks">
+          <HintPath>C:\Users\po0po\OneDrive\Documents\Visual Studio 2022\Templates\ProjectTemplates\whoknows\Mono.Cecil.Rocks.dll</HintPath>
+        </Reference>
+        <Reference Include="MonoMod">
+          <HintPath>C:\Users\po0po\OneDrive\Documents\Visual Studio 2022\Templates\ProjectTemplates\whoknows\MonoMod.dll</HintPath>
+        </Reference>
+        <Reference Include="MonoMod.RuntimeDetour">
+          <HintPath>C:\Users\po0po\OneDrive\Documents\Visual Studio 2022\Templates\ProjectTemplates\whoknows\MonoMod.RuntimeDetour.dll</HintPath>
+        </Reference>
+        <Reference Include="MonoMod.RuntimeDetour.HookGen">
+          <HintPath>C:\Users\po0po\OneDrive\Documents\Visual Studio 2022\Templates\ProjectTemplates\whoknows\MonoMod.RuntimeDetour.HookGen.dll</HintPath>
+        </Reference>
+        <Reference Include="MonoMod.Utils">
+          <HintPath>C:\Users\po0po\OneDrive\Documents\Visual Studio 2022\Templates\ProjectTemplates\whoknows\MonoMod.Utils.dll</HintPath>
+        </Reference>
+        <Reference Include="MyceliumNetworkingForCW">
+          <HintPath>C:\Users\po0po\OneDrive\Documents\Visual Studio 2022\Templates\ProjectTemplates\whoknows\MyceliumNetworkingForCW.dll</HintPath>
+        </Reference>
+        <Reference Include="Notest.ConfigSync">
+          <HintPath>$(ProjectDir)Embedded plugins\Notest.ConfigSync.dll</HintPath>
+        </Reference>
+        <Reference Include="rivinwin.MortalEnemies">
+          <HintPath>$(ProjectDir)Embedded plugins\rivinwin.MortalEnemies.dll</HintPath>
+        </Reference>
+        <Reference Include="UnityEngine">
+          <HintPath>C:\Users\po0po\OneDrive\Documents\Visual Studio 2022\Templates\ProjectTemplates\whoknows\UnityEngine.dll</HintPath>
+        </Reference>
+        <Reference Include="UnityEngine.CoreModule">
+          <HintPath>C:\Users\po0po\OneDrive\Documents\Visual Studio 2022\Templates\ProjectTemplates\whoknows\UnityEngine.CoreModule.dll</HintPath>
+        </Reference>
+        <Reference Include="Zorro.AutoLOD">
+          <HintPath>C:\Users\po0po\OneDrive\Documents\Visual Studio 2022\Templates\ProjectTemplates\whoknows\Zorro.AutoLOD.dll</HintPath>
+        </Reference>
+        <Reference Include="Zorro.Core.Runtime">
+          <HintPath>C:\Users\po0po\OneDrive\Documents\Visual Studio 2022\Templates\ProjectTemplates\whoknows\Zorro.Core.Runtime.dll</HintPath>
+        </Reference>
+        <Reference Include="Zorro.PhotonUtility">
+          <HintPath>C:\Users\po0po\OneDrive\Documents\Visual Studio 2022\Templates\ProjectTemplates\whoknows\Zorro.PhotonUtility.dll</HintPath>
+        </Reference>
+        <Reference Include="Zorro.Recorder">
+          <HintPath>C:\Users\po0po\OneDrive\Documents\Visual Studio 2022\Templates\ProjectTemplates\whoknows\Zorro.Recorder.dll</HintPath>
+        </Reference>
+        <Reference Include="Zorro.Settings.Runtime">
+          <HintPath>C:\Users\po0po\OneDrive\Documents\Visual Studio 2022\Templates\ProjectTemplates\whoknows\Zorro.Settings.Runtime.dll</HintPath>
+        </Reference>
+        <Reference Include="Zorro.UI.Runtime">
+          <HintPath>C:\Users\po0po\OneDrive\Documents\Visual Studio 2022\Templates\ProjectTemplates\whoknows\Zorro.UI.Runtime.dll</HintPath>
+        </Reference>
+    </ItemGroup>
+
+    <Import Project="./LazerWeaponry.Packaging.targets" />
+</Project>
