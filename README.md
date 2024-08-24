@@ -82,3 +82,4 @@ Despite Rescue Hook depleting some amount of charge upon firing a projectile, it
 - [Rivinwin](https://github.com/RivinwinCW) - helping with integrating MortalEnemies and playtesting
 - [Notest](https://github.com/NotestQ) - helping with integrating ConfigSync and finding annoying bug in Mycelium
 - [Day](https://github.com/wwwDayDream) - making awesome WIP mod named TKTC which i had most influence from!
+- [Potatoe] FOR STEALLINGG EVERYTHING YAHAHAHA
